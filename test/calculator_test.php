@@ -38,7 +38,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 		{
 
 		$c = new Calculator;
-		$result = $c->multiply( 6, 2);
+		$result = $c->divide( 6, 2);
 		$this->assertEquals( 3 , $result) ;
 		}
 
