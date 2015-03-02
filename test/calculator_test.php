@@ -34,5 +34,13 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	$this->assertEquals( 4 , $result) ;
 	}
 
+	public function testDivide()
+		{
+
+		$c = new Calculator;
+		$result = $c->multiply( 6, 2);
+		$this->assertEquals( 3 , $result) ;
+		}
+
 
 }
