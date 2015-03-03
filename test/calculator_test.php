@@ -70,10 +70,20 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	public function testParseString()
 	{
 
-	$token = array(0 => "1", 1 => "+" , 2 => "1") ;
+	$token = array(0 => 1, 1 => "+" , 2 => 1) ;
 	$c = new Calculator;
 	$result = $c->parseString('1+1');
 	$this->assertEquals($token , $result) ;
+	}
+
+	public function testConvertNumbersToIntegers()
+	{
+
+	$int = 6 ;
+	$input =  array('0' => '6','1' => '+','2' => '6', );
+	$c = new Calculator;
+	$result = $c->convertNumbersToIntegers($input);
+	$this->assertEquals($int , $result[0]) ;
 	}
 
 }

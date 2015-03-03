@@ -13,7 +13,8 @@ class calculator{
 	
 	public function add( $string){
 	$value = $this->parseString($string);
-	return intval($value[0]) + intval($value[2]) ;
+	$valueInt = $this->convertNumbersToIntegers($value);
+	return $valueInt[0]  +  $valueInt[2] ;
 
 	}
 
@@ -26,7 +27,8 @@ class calculator{
 	public function subtract( $input)
 	{
 	$value = $this->parseString($input);
-	return intval($value[0]) - intval($value[2]) ;
+	$valueInt = $this->convertNumbersToIntegers($value);
+	return $valueInt[0]  -  $valueInt[2] ;
 	}
 
 
@@ -38,7 +40,8 @@ class calculator{
 	public function multiply( $string)
 	{
 	$value = $this->parseString($string);
-	return intval($value[0])  *  intval($value[2]) ;
+	$valueInt = $this->convertNumbersToIntegers($value);
+	return $valueInt[0]  *  $valueInt[2] ;
 	}
 
 
@@ -50,21 +53,39 @@ class calculator{
 	public function divide( $string )
 	{
 	$value = $this->parseString($string);
-	return intval($value[0])  / intval($value[2]) ;
+	$valueInt = $this->convertNumbersToIntegers($value);
+	return $valueInt[0]  /  $valueInt[2] ;
 	}
 
 	/**********************************************************************************************************
 	Parse string
 	/*********************************************************************************************************/
-	function parseString($string) {
+	public function parseString($string) {
         $parts = preg_split('((\d+|\+|-|\(|\)|\*|/)|\s+)', $string, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         $parts = array_map('trim', $parts);
+        $intParts =$this->convertNumbersToIntegers($parts) ;
        // $this->extractOperator($parts);
 
 
-        return $parts;
+        return $intParts;
 
     }
+
+
+    /**********************************************************************************************************
+	Turn numbers into integers
+	/*********************************************************************************************************/
+	public function convertNumbersToIntegers($parts){
+	foreach ($parts as $value) {
+		if(ctype_digit($value))
+
+			intval($value);
+	}
+	return $parts;
+
+	}
+
+
     /**********************************************************************************************************
 	Extract operator
 	/*********************************************************************************************************/
