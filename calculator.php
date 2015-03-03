@@ -11,9 +11,9 @@ class calculator{
 	Add method 
 	/*********************************************************************************************************/
 	
-	public function add( $input_numbers){
-	
-	return $a + $b;
+	public function add( $string){
+	$value = $this->parseString($string);
+	return intval($value[0]) + intval($value[2]) ;
 
 	}
 
@@ -23,9 +23,10 @@ class calculator{
 	/*********************************************************************************************************/
 	
 
-	public function subtract( $input_numbers)
+	public function subtract( $input)
 	{
-	return $a - $b;
+	$value = $this->parseString($input);
+	return intval($value[0]) - intval($value[2]) ;
 	}
 
 
@@ -34,9 +35,10 @@ class calculator{
 	/*********************************************************************************************************/
 	
 
-	public function multiply( $input_numbers )
+	public function multiply( $string)
 	{
-	return $a * $b;
+	$value = $this->parseString($string);
+	return intval($value[0])  *  intval($value[2]) ;
 	}
 
 
@@ -45,10 +47,27 @@ class calculator{
 	/*********************************************************************************************************/
 	
 
-	public function divide( $a , $b)
+	public function divide( $string )
 	{
-	return $a / $b;
+	$value = $this->parseString($string);
+	return intval($value[0])  / intval($value[2]) ;
 	}
 
+	/**********************************************************************************************************
+	Parse string
+	/*********************************************************************************************************/
+	function parseString($string) {
+        $parts = preg_split('((\d+|\+|-|\(|\)|\*|/)|\s+)', $string, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $parts = array_map('trim', $parts);
+       // $this->extractOperator($parts);
+
+
+        return $parts;
+
+    }
+    /**********************************************************************************************************
+	Extract operator
+	/*********************************************************************************************************/
+	
 
 }

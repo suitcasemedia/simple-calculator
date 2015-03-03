@@ -13,9 +13,9 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	/*********************************************************************************************************/
 	public function testAdd()
 	{
-
+	$string = "15+10";
 	$c = New Calculator;
-	$result = $c->add(15, 10);
+	$result = $c->add($string);
 	$this->assertEquals(25, $result);
 	
 
@@ -28,9 +28,9 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 
 	public function testSubstract()
 	{
-	
+	$string = "50-20";
 	$c = new Calculator;
-	$result = $c->subtract(50 , 20);
+	$result = $c->subtract($string);
 	$this->assertEquals(30, $result);
 
 	}
@@ -42,9 +42,9 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 
 	public function testMultiply()
 	{
-
+	$string = "2*2" ;
 	$c = new Calculator;
-	$result = $c->multiply( 2, 2);
+	$result = $c->multiply( $string);
 	$this->assertEquals( 4 , $result) ;
 	}
 
@@ -56,11 +56,24 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 
 	public function testDivide()
 		{
-
+		$string = "6/2" ;
 		$c = new Calculator;
-		$result = $c->divide( 6, 2);
+		$result = $c->divide($string);
 		$this->assertEquals( 3 , $result) ;
 		}
 
+
+	/**********************************************************************************************************
+	Parse string test
+	/*********************************************************************************************************/
+	
+	public function testParseString()
+	{
+
+	$token = array(0 => "1", 1 => "+" , 2 => "1") ;
+	$c = new Calculator;
+	$result = $c->parseString('1+1');
+	$this->assertEquals($token , $result) ;
+	}
 
 }
