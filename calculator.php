@@ -2,8 +2,21 @@
 
 class calculator{
 
+	public  $equation  ;
 
-	public $input_numbers = array() ;
+
+
+	function __construct($mathString) {
+
+
+
+	$value = $this->parseString($mathString);
+	$valueInt = $this->convertNumbersToIntegers($value);
+	$this->equation = $valueInt;
+      
+   }
+
+
 
 
 
@@ -11,11 +24,11 @@ class calculator{
 	Add method 
 	/*********************************************************************************************************/
 	
-	public function add( $string){
-	$value = $this->parseString($string);
-	$valueInt = $this->convertNumbersToIntegers($value);
-	return $valueInt[0]  +  $valueInt[2] ;
+	public function add(){
+	
+	$sum  = $this->equation[0]  +  $this->equation[2] ;
 
+	return $sum;
 	}
 
 
@@ -24,11 +37,10 @@ class calculator{
 	/*********************************************************************************************************/
 	
 
-	public function subtract( $input)
+	public function subtract( )
 	{
-	$value = $this->parseString($input);
-	$valueInt = $this->convertNumbersToIntegers($value);
-	return $valueInt[0]  -  $valueInt[2] ;
+	
+	return $this->equation[0]  -  $this->equation[2] ;
 	}
 
 
@@ -37,24 +49,23 @@ class calculator{
 	/*********************************************************************************************************/
 	
 
-	public function multiply( $string)
+	public function multiply()
 	{
-	$value = $this->parseString($string);
-	$valueInt = $this->convertNumbersToIntegers($value);
-	return $valueInt[0]  *  $valueInt[2] ;
+	
+	
+	return $this->equation[0]  *  $this->equation[2] ;
+
 	}
 
 
 	/**********************************************************************************************************
 	Divide method 
-	/*********************************************************************************************************/
+	*********************************************************************************************************/
 	
 
-	public function divide( $string )
+	public function divide()
 	{
-	$value = $this->parseString($string);
-	$valueInt = $this->convertNumbersToIntegers($value);
-	return $valueInt[0]  /  $valueInt[2] ;
+	return $this->equation[0]  / $this->equation[2] ;
 	}
 
 	/**********************************************************************************************************
@@ -75,20 +86,119 @@ class calculator{
     /**********************************************************************************************************
 	Turn numbers into integers
 	/*********************************************************************************************************/
+
+
 	public function convertNumbersToIntegers($parts){
+
 	foreach ($parts as $value) {
 		if(ctype_digit($value))
 
 			intval($value);
 	}
+
 	return $parts;
 
 	}
 
 
     /**********************************************************************************************************
-	Extract operator
+	Length less then 4 e.g 1+1 
+	/*********************************************************************************************************/
+	public function lengthLessThan4($parts){
+		
+			if ($parts[1]  == '+'){
+
+				$output  = $this->add( $parts[0] , $parts[2]) ;
+				return $output;
+			}
+
+			elseif ($parts[1]   == '-'){
+
+				$output = $this->subtract( $parts[0] , $parts[2]) ;
+				return $output;
+			}
+
+			elseif ($parts[1]   == '/'){
+
+				$subtotal = $this->divide( $parts[0] , $parts[2]);
+				return $output;
+			}
+			elseif ($parts[1]   == '*'){
+
+				$subtotal = $this->multiply( $parts[0] , $parts[2] );
+				return $output;
+			}
+
+
+
+
+	}
+    /**********************************************************************************************************
+	Loop through array and perform tasks
 	/*********************************************************************************************************/
 	
+	public function runThroughStack($parts){
 
+		$length = count($parts) ;
+		$x = 0;
+
+		if($length == 3){
+
+			return $this->lengthLessThan4($parts) ;
+
+		}	
+
+
+
+
+
+
+
+			/*for($x = 0. $x <= $length; $x++) {
+
+
+					
+
+
+
+
+				for($x = 0. $x <= 3; $x++) {
+
+					
+*/
+
+					/*after first three element of the array */
+
+					/*if ($x+1  == '+'){
+
+					$subtotal = $this->add( $parts[$x] , $parts[$x+1]) ;
+					$x = $x + 2;
+					}
+
+					elseif ($x+1  == '-'){
+
+					$subtotal = $this->subtract( $parts[$x] , $parts[$x+1]) ;
+					$x = $x + 2;
+					}
+
+					elseif ($x+1  == '/'){
+
+					$subtotal = $this->divide( $parts[$x] , $parts[$x+1]) ;
+					$x = $x + 2;
+					}
+					elseif ($x+1  == '*'){
+
+					$subtotal = $this->multiply( $parts[$x] , $parts[$x+1]) ;
+					$x = $x + 2;
+					}
+*/
+
+
+
+
+				}
+
+			
+
+		
 }
