@@ -3,6 +3,7 @@
 class calculator{
 
 	public  $equation  ;
+	public $answer ;
 
 
 
@@ -10,9 +11,10 @@ class calculator{
 
 
 
-	$value = $this->parseString($mathString);
-	$valueInt = $this->convertNumbersToIntegers($value);
-	$this->equation = $valueInt;
+	$valuesArray = $this->parseString($mathString);
+	$this->equation  = $this->convertNumbersToIntegers($valuesArray);
+	$this->answer = ($this->runThroughStack($this->equation));
+	
       
    }
 
@@ -108,25 +110,25 @@ class calculator{
 		
 			if ($parts[1]  == '+'){
 
-				$output  = $this->add( $parts[0] , $parts[2]) ;
+				$output  = $this->add() ;
 				return $output;
 			}
 
 			elseif ($parts[1]   == '-'){
 
-				$output = $this->subtract( $parts[0] , $parts[2]) ;
+				$output = $this->subtract() ;
 				return $output;
 			}
 
 			elseif ($parts[1]   == '/'){
 
-				$subtotal = $this->divide( $parts[0] , $parts[2]);
-				return $output;
+				$subtotal = $this->divide();
+				return $subtotal;
 			}
 			elseif ($parts[1]   == '*'){
 
-				$subtotal = $this->multiply( $parts[0] , $parts[2] );
-				return $output;
+				$subtotal = $this->multiply( );
+				return $subtotal;
 			}
 
 
@@ -139,66 +141,64 @@ class calculator{
 	
 	public function runThroughStack($parts){
 
-		$length = count($parts) ;
-		$x = 0;
-
-		if($length == 3){
+		$length = count($parts) -1  ;
+		if($length == 2 ){
 
 			return $this->lengthLessThan4($parts) ;
 
 		}	
 
-
-
-
-
-
-
-			/*for($x = 0. $x <= $length; $x++) {
-
-
-					
-
-
-
-
-				for($x = 0. $x <= 3; $x++) {
-
-					
-*/
-
-					/*after first three element of the array */
-
-					/*if ($x+1  == '+'){
-
-					$subtotal = $this->add( $parts[$x] , $parts[$x+1]) ;
-					$x = $x + 2;
-					}
-
-					elseif ($x+1  == '-'){
-
-					$subtotal = $this->subtract( $parts[$x] , $parts[$x+1]) ;
-					$x = $x + 2;
-					}
-
-					elseif ($x+1  == '/'){
-
-					$subtotal = $this->divide( $parts[$x] , $parts[$x+1]) ;
-					$x = $x + 2;
-					}
-					elseif ($x+1  == '*'){
-
-					$subtotal = $this->multiply( $parts[$x] , $parts[$x+1]) ;
-					$x = $x + 2;
-					}
-*/
-
-
-
-
-				}
-
+		elseif ($length > 2) {
+			$sliced_array = array_slice($parts, 0, 3) ;
 			
 
-		
+			$subtotal = $this->lengthLessThan4($sliced_array) ;
+
+			for($x = 2 ; $x < ($length - 1 ) ;  $x+=2) {
+				// print_r($parts[$x+1]);
+				/*after first three element of the array */
+
+				if($parts[$x+1]  == '+'){
+					// print_r($subtotal);
+					$subtotal =  $subtotal +  $parts[$x+2] ;
+
+					// print_r($subtotal);
+
+					
+				}
+
+				elseif ($parts[$x+1]  == '-'){
+
+					$subtotal =  $subtotal -  $parts[$x+2] ; ;
+					
+				}
+
+				elseif ($parts[$x+1]  == '/'){
+
+					$subtotal =  $subtotal  / $parts[$x+2] ;
+				}
+				elseif ($parts[$x+1]  == '*'){
+
+					$subtotal = $subtotal *  $parts[$x+2] ;
+					
+				}
+
+
+
+
+
+
+
+			}
+			$total = $subtotal;
+
+			return $total;
+
+		}
+
+	}
+
+
+
+
 }
