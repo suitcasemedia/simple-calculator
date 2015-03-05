@@ -15,7 +15,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	{
 	$string = "15+10";
 	$c = New Calculator($string);
-	$result = $c->add();
+	$result = $c->answer;
 	$this->assertEquals(25, $result);
 
 	
@@ -31,7 +31,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	{
 	$string = "50-20";
 	$c = new Calculator($string);
-	$result = $c->subtract();
+	$result = $c->answer;
 	$this->assertEquals(30, $result);
 
 	}
@@ -45,7 +45,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	{
 	$string = "2*2" ;
 	$c = new Calculator($string );
-	$result = $c->multiply();
+	$result = $c->answer;
 	$this->assertEquals( 4 , $result) ;
 	}
 
@@ -59,7 +59,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 		{
 		$string = "6/2" ;
 		$c = new Calculator($string);
-		$result = $c->divide();
+		$result = $c->answer;
 		$this->assertEquals( 3 , $result) ;
 		}
 
@@ -208,7 +208,7 @@ class CalculatorTest extends PHPUnit_Framework_TestCase
 	/**********************************************************************************************************
 	Test final input and output 6
 	/*********************************************************************************************************/
-	
+
 	public function testCalulator5()
 
 	{

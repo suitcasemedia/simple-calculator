@@ -11,78 +11,26 @@ class calculator{
 
 
 
-	$valuesArray = $this->parseString($mathString);
-	$this->equation  = $this->convertNumbersToIntegers($valuesArray);
-	$this->answer = ($this->runThroughStack($this->equation));
-	
-      
-   }
-
-
-
-
-
-	/**********************************************************************************************************
-	Add method 
-	/*********************************************************************************************************/
-	
-	public function add(){
-	
-	$sum  = $this->equation[0]  +  $this->equation[2] ;
-
-	return $sum;
-	}
-
-
-	/**********************************************************************************************************
-	Subtract method 
-	/*********************************************************************************************************/
-	
-
-	public function subtract( )
-	{
-	
-	return $this->equation[0]  -  $this->equation[2] ;
-	}
-
-
-	/**********************************************************************************************************
-	Multiply method 
-	/*********************************************************************************************************/
-	
-
-	public function multiply()
-	{
-	
-	
-	return $this->equation[0]  *  $this->equation[2] ;
-
-	}
-
-
-	/**********************************************************************************************************
-	Divide method 
-	*********************************************************************************************************/
-	
-
-	public function divide()
-	{
-	return $this->equation[0]  / $this->equation[2] ;
+		$valuesArray = $this->parseString($mathString);
+		$this->equation  = $this->convertNumbersToIntegers($valuesArray);
+		$this->answer = ($this->runThroughStack($this->equation));
+		
+		
 	}
 
 	/**********************************************************************************************************
 	Parse string
 	/*********************************************************************************************************/
 	public function parseString($string) {
-        $parts = preg_split('((\d+|\+|-|\(|\)|\*|/)|\s+)', $string, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-        $parts = array_map('trim', $parts);
-        $intParts =$this->convertNumbersToIntegers($parts) ;
+		$parts = preg_split('((\d+|\+|-|\(|\)|\*|/)|\s+)', $string, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		$parts = array_map('trim', $parts);
+		$intParts =$this->convertNumbersToIntegers($parts) ;
        // $this->extractOperator($parts);
 
 
-        return $intParts;
+		return $intParts;
 
-    }
+	}
 
 
     /**********************************************************************************************************
@@ -92,44 +40,44 @@ class calculator{
 
 	public function convertNumbersToIntegers($parts){
 
-	foreach ($parts as $value) {
-		if(ctype_digit($value))
+		foreach ($parts as $value) {
+			if(ctype_digit($value))
 
-			intval($value);
-	}
+				intval($value);
+		}
 
-	return $parts;
+		return $parts;
 
 	}
 
 
     /**********************************************************************************************************
-	Length less then 4 e.g 1+1 
+	Do calcuation for equeations Length less then 4 e.g 1+1  or for first 2 parts of a long equations
 	/*********************************************************************************************************/
 	public function lengthLessThan4($parts){
 		
-			if ($parts[1]  == '+'){
+		if ($parts[1]  == '+'){
 
-				$output  = $this->add() ;
-				return $output;
-			}
+			$output  = $parts[0] + $parts[2] ;
+			return $output;
+		}
 
-			elseif ($parts[1]   == '-'){
+		elseif ($parts[1]   == '-'){
 
-				$output = $this->subtract() ;
-				return $output;
-			}
+			$output = $parts[0]  - $parts[2] ;
+			return $output;
+		}
 
-			elseif ($parts[1]   == '/'){
+		elseif ($parts[1]   == '/'){
 
-				$subtotal = $this->divide();
-				return $subtotal;
-			}
-			elseif ($parts[1]   == '*'){
+			$subtotal = $parts[0] / $parts[2] ;
+			return $subtotal;
+		}
+		elseif ($parts[1]   == '*'){
 
-				$subtotal = $this->multiply( );
-				return $subtotal;
-			}
+			$subtotal = $parts[0] * $parts[2] ;
+			return $subtotal;
+		}
 
 
 
