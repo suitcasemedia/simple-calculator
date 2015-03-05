@@ -5,17 +5,11 @@ class calculator{
 	public  $equation  ;
 	public $answer ;
 
-
-
-	function __construct($mathString) {
-
-
+function __construct($mathString) {
 
 		$valuesArray = $this->parseString($mathString);
 		$this->equation  = $this->convertNumbersToIntegers($valuesArray);
 		$this->answer = ($this->runThroughStack($this->equation));
-		
-		
 	}
 
 	/**********************************************************************************************************
@@ -25,49 +19,35 @@ class calculator{
 		$parts = preg_split('((\d+|\+|-|\(|\)|\*|/)|\s+)', $string, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		$parts = array_map('trim', $parts);
 		$intParts =$this->convertNumbersToIntegers($parts) ;
-       // $this->extractOperator($parts);
-
-
-		return $intParts;
-
-	}
+       	return $intParts;
+   }
 
 
     /**********************************************************************************************************
 	Turn numbers into integers
 	/*********************************************************************************************************/
-
-
 	public function convertNumbersToIntegers($parts){
-
-		foreach ($parts as $value) {
+			foreach ($parts as $value) {
 			if(ctype_digit($value))
 
 				intval($value);
 		}
-
 		return $parts;
+		}
 
-	}
-
-
-    /**********************************************************************************************************
+	/**********************************************************************************************************
 	Do calcuation for equeations Length less then 4 e.g 1+1  or for first 2 parts of a long equations
 	/*********************************************************************************************************/
 	public function lengthLessThan4($parts){
-		
 		if ($parts[1]  == '+'){
-
 			$output  = $parts[0] + $parts[2] ;
 			return $output;
 		}
-
 		elseif ($parts[1]   == '-'){
 
 			$output = $parts[0]  - $parts[2] ;
 			return $output;
 		}
-
 		elseif ($parts[1]   == '/'){
 
 			$subtotal = $parts[0] / $parts[2] ;
@@ -78,13 +58,9 @@ class calculator{
 			$subtotal = $parts[0] * $parts[2] ;
 			return $subtotal;
 		}
-
-
-
-
 	}
     /**********************************************************************************************************
-	Loop through array and perform tasks
+	Loop through array  and perfom mathematical operations - 
 	/*********************************************************************************************************/
 	
 	public function runThroughStack($parts){
@@ -95,58 +71,27 @@ class calculator{
 			return $this->lengthLessThan4($parts) ;
 
 		}	
-
 		elseif ($length > 2) {
 			$sliced_array = array_slice($parts, 0, 3) ;
-			
-
 			$subtotal = $this->lengthLessThan4($sliced_array) ;
 
 			for($x = 2 ; $x < ($length - 1 ) ;  $x+=2) {
-				// print_r($parts[$x+1]);
-				/*after first three element of the array */
-
 				if($parts[$x+1]  == '+'){
-					// print_r($subtotal);
 					$subtotal =  $subtotal +  $parts[$x+2] ;
-
-					// print_r($subtotal);
-
-					
 				}
-
 				elseif ($parts[$x+1]  == '-'){
-
-					$subtotal =  $subtotal -  $parts[$x+2] ; ;
-					
+					$subtotal =  $subtotal -  $parts[$x+2] ; 
 				}
-
 				elseif ($parts[$x+1]  == '/'){
-
 					$subtotal =  $subtotal  / $parts[$x+2] ;
 				}
 				elseif ($parts[$x+1]  == '*'){
-
 					$subtotal = $subtotal *  $parts[$x+2] ;
-					
 				}
-
-
-
-
-
-
-
 			}
 			$total = $subtotal;
 
 			return $total;
-
-		}
-
 	}
-
-
-
-
+	}
 }
